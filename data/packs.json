@@ -2,7 +2,7 @@
   {
     "id": "real-estate-agent",
     "name": "Real Estate Agent",
-    "icon": "⌂",
+    "icon": "\u2302",
     "description": "Lead follow-up, property research, scheduling, documents, client communication, and market context.",
     "audience": "Agents & brokers",
     "skills": [
@@ -26,7 +26,7 @@
   {
     "id": "electrician-owner",
     "name": "Electrician / Contractor",
-    "icon": "ϟ",
+    "icon": "\u03df",
     "description": "Scheduling, project tracking, documents, customer follow-up, bookkeeping, and business operations.",
     "audience": "Owners & estimators",
     "skills": [
@@ -50,7 +50,7 @@
   {
     "id": "church-director",
     "name": "Church Director",
-    "icon": "✦",
+    "icon": "\u2726",
     "description": "Events, volunteer coordination, communication, meeting notes, documents, and outreach.",
     "audience": "Church leadership",
     "skills": [
@@ -74,7 +74,7 @@
   {
     "id": "small-business-owner",
     "name": "Small Business Owner",
-    "icon": "▣",
+    "icon": "\u25a3",
     "description": "A practical everyday stack for running a small company without drowning in tools.",
     "audience": "Owners & operators",
     "skills": [
@@ -98,7 +98,7 @@
   {
     "id": "sales-crm",
     "name": "Sales & CRM Agent",
-    "icon": "↗",
+    "icon": "\u2197",
     "description": "Prospecting, CRM updates, outreach, follow-up, research, scheduling, and pipeline work.",
     "audience": "Sales teams",
     "skills": [
@@ -120,7 +120,7 @@
   {
     "id": "executive-assistant",
     "name": "Executive Assistant",
-    "icon": "◇",
+    "icon": "\u25c7",
     "description": "Calendar, meetings, documents, project tracking, follow-up, and executive organization.",
     "audience": "Executives & chiefs of staff",
     "skills": [
@@ -142,7 +142,7 @@
   {
     "id": "marketing-lead",
     "name": "Marketing Lead",
-    "icon": "◉",
+    "icon": "\u25c9",
     "description": "Research, content planning, social media, campaign documents, outreach, and coordination.",
     "audience": "Marketing teams",
     "skills": [
@@ -164,20 +164,20 @@
   {
     "id": "developer-ops",
     "name": "Developer / Ops",
-    "icon": "⌘",
+    "icon": "\u2318",
     "description": "Git, containers, deployment support, project tracking, documents, and technical workflows.",
     "audience": "Builders & operators",
     "skills": [
-      "docker-containerization",
+      "agentic-devops",
       "gitflow",
-      "fast-io",
+      "github-developer-data-tools",
       "project-management-2",
       "document-pdf"
     ],
     "capabilities": [
       "Git and release workflows",
-      "Containerization",
-      "File and I/O automation",
+      "Docker and DevOps operations",
+      "Repository and release research",
       "Technical project tracking",
       "Documentation handling"
     ],

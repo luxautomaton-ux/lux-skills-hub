@@ -21,7 +21,7 @@
       "source": "ClawHub",
       "sourceUrl": "https://clawhub.ai/ivangdavila/real-estate",
       "trust": "curated",
-      "icon": "⌂"
+      "icon": "\u2302"
     },
     {
       "id": "calendar-scheduling",
@@ -38,7 +38,7 @@
       "source": "ClawHub",
       "sourceUrl": "https://clawhub.ai/billylui/calendar-scheduling",
       "trust": "curated",
-      "icon": "◷"
+      "icon": "\u25f7"
     },
     {
       "id": "meeting-notes",
@@ -55,7 +55,7 @@
       "source": "ClawHub",
       "sourceUrl": "https://clawhub.ai/mohitagw15856/meeting-notes",
       "trust": "curated",
-      "icon": "≡"
+      "icon": "\u2261"
     },
     {
       "id": "document-pdf",
@@ -72,7 +72,7 @@
       "source": "ClawHub",
       "sourceUrl": "https://clawhub.ai/kidaiangel/document-pdf",
       "trust": "curated",
-      "icon": "▤"
+      "icon": "\u25a4"
     },
     {
       "id": "email-outreach",
@@ -89,7 +89,7 @@
       "source": "ClawHub",
       "sourceUrl": "https://clawhub.ai/v3ads/email-outreach",
       "trust": "curated",
-      "icon": "✉"
+      "icon": "\u2709"
     },
     {
       "id": "salesflare",
@@ -106,7 +106,7 @@
       "source": "ClawHub",
       "sourceUrl": "https://clawhub.ai/jeroencorthout/salesflare",
       "trust": "community",
-      "icon": "◎"
+      "icon": "\u25ce"
     },
     {
       "id": "market-research",
@@ -123,7 +123,7 @@
       "source": "ClawHub",
       "sourceUrl": "https://clawhub.ai/ivangdavila/market-research",
       "trust": "curated",
-      "icon": "⌕"
+      "icon": "\u2315"
     },
     {
       "id": "social-media-marketing",
@@ -140,7 +140,7 @@
       "source": "ClawHub",
       "sourceUrl": "https://clawhub.ai/jk-0001/social-media-marketing",
       "trust": "curated",
-      "icon": "◈"
+      "icon": "\u25c8"
     },
     {
       "id": "project-management-2",
@@ -157,7 +157,7 @@
       "source": "ClawHub",
       "sourceUrl": "https://clawhub.ai/jk-0001/project-management-2",
       "trust": "curated",
-      "icon": "✓"
+      "icon": "\u2713"
     },
     {
       "id": "bookkeeping-basics",
@@ -191,7 +191,7 @@
       "source": "ClawHub",
       "sourceUrl": "https://clawhub.ai/thejanethmina/google-calendar-scheduling",
       "trust": "community",
-      "icon": "◫"
+      "icon": "\u25eb"
     },
     {
       "id": "pdf-document-generation-cellcog",
@@ -209,24 +209,25 @@
       "source": "ClawHub",
       "sourceUrl": "https://clawhub.ai/cellcog/pdf-document-generation-cellcog",
       "trust": "community",
-      "icon": "▧"
+      "icon": "\u25a7"
     },
     {
-      "id": "docker-containerization",
-      "identifier": "clawhub/docker-containerization",
-      "name": "Docker Containerization",
-      "description": "Package applications and services into containers with practical Docker workflows.",
-      "author": "veeramanikandanr48",
+      "id": "agentic-devops",
+      "identifier": "clawhub/agentic-devops",
+      "name": "Agentic DevOps",
+      "description": "Production-oriented DevOps workflows for Docker, process management, logs, and health monitoring.",
+      "author": "tkuehnl",
       "category": "Developer",
       "tags": [
         "docker",
         "devops",
-        "deployment"
+        "logs",
+        "operations"
       ],
-      "source": "Hermes community index",
-      "sourceUrl": "https://github.com/NousResearch/hermes-agent",
-      "trust": "community",
-      "icon": "⬡"
+      "source": "ClawHub",
+      "sourceUrl": "https://clawhub.ai/tkuehnl/agentic-devops",
+      "trust": "curated",
+      "icon": "\u2b21"
     },
     {
       "id": "gitflow",
@@ -243,24 +244,25 @@
       "source": "Hermes community index",
       "sourceUrl": "https://github.com/NousResearch/hermes-agent",
       "trust": "community",
-      "icon": "⑂"
+      "icon": "\u2442"
     },
     {
-      "id": "fast-io",
-      "identifier": "clawhub/fast-io",
-      "name": "Fast I/O",
-      "description": "A developer-oriented skill surfaced by the community catalog for file and I/O workflows.",
-      "author": "dbalve",
+      "id": "github-developer-data-tools",
+      "identifier": "clawhub/github-developer-data-tools",
+      "name": "GitHub & Developer Data",
+      "description": "Inspect repository metadata, releases, developer data, and dependency context for technical research.",
+      "author": "colinhughes2121",
       "category": "Developer",
       "tags": [
-        "files",
-        "development",
-        "automation"
+        "github",
+        "repositories",
+        "releases",
+        "research"
       ],
-      "source": "Hermes community index",
-      "sourceUrl": "https://github.com/NousResearch/hermes-agent",
-      "trust": "community",
-      "icon": "⚡"
+      "source": "ClawHub",
+      "sourceUrl": "https://clawhub.ai/colinhughes2121/github-developer-data-tools",
+      "trust": "curated",
+      "icon": "\u2442"
     }
   ]
 }
