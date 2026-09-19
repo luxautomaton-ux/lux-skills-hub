@@ -9,6 +9,8 @@ const state = {
   communityLoaded: false,
   communityLoading: false,
   catalogCount: 0,
+  sourceCounts: {},
+  generatedAt: "",
 };
 
 const params = new URLSearchParams(window.location.search);
@@ -25,6 +27,14 @@ const els = {
   resultCount: document.querySelector("#resultCount"),
   skillCount: document.querySelector("#skillCount"),
   packCount: document.querySelector("#packCount"),
+  sourceCount: document.querySelector("#sourceCount"),
+  commandCatalogCount: document.querySelector("#commandCatalogCount"),
+  catalogFreshness: document.querySelector("#catalogFreshness"),
+  communityLoadState: document.querySelector("#communityLoadState"),
+  recommendedGrid: document.querySelector("#recommendedGrid"),
+  quickFilterRow: document.querySelector("#quickFilterRow"),
+  sourcePulseGrid: document.querySelector("#sourcePulseGrid"),
+  sourcePulseStamp: document.querySelector("#sourcePulseStamp"),
   clear: document.querySelector("#clearFilters"),
   modalBackdrop: document.querySelector("#modalBackdrop"),
   modalBody: document.querySelector("#modalBody"),
@@ -71,6 +81,105 @@ function skillRoles(skill) {
   };
 
   return fallback[skill.category] || ["Operations & Systems"];
+}
+
+const FEATURED_SKILL_IDS = [
+  "project-management-2",
+  "market-research",
+  "calendar-scheduling",
+  "email-outreach",
+];
+
+const QUICK_PATHS = [
+  ["◇", "Executive", "Executive & Chief of Staff"],
+  ["⌘", "Build", "Engineering & Builder"],
+  ["⌕", "Research", "Research & Intelligence"],
+  ["↗", "Sales", "Sales & CRM"],
+  ["◈", "Marketing", "Marketing & Content"],
+  ["$", "Money", "Finance & Money"],
+  ["☏", "Support", "Customer Support"],
+  ["ϟ", "Field", "Field Service & Trades"],
+];
+
+function formatCount(value) {
+  return new Intl.NumberFormat("en-US").format(Number(value) || 0);
+}
+
+function relativeFreshness(value) {
+  if (!value) return "live";
+  const stamp = new Date(value);
+  if (Number.isNaN(stamp.getTime())) return "live";
+  const minutes = Math.max(0, Math.round((Date.now() - stamp.getTime()) / 60000));
+  if (minutes < 2) return "updated just now";
+  if (minutes < 60) return `updated ${minutes}m ago`;
+  const hours = Math.round(minutes / 60);
+  if (hours < 24) return `updated ${hours}h ago`;
+  return `updated ${Math.round(hours / 24)}d ago`;
+}
+
+function renderRecommendations() {
+  if (!els.recommendedGrid) return;
+  const picks = FEATURED_SKILL_IDS.map(skillById).filter(Boolean);
+  els.recommendedGrid.innerHTML = picks.map((skill, index) => `
+    <article class="recommend-card" data-recommend="${escapeHtml(skill.id)}">
+      <div class="recommend-top">
+        <span class="recommend-rank">0${index + 1}</span>
+        <span class="trust-badge ${escapeHtml(skill.trust)}">${escapeHtml(trustLabel(skill.trust))}</span>
+      </div>
+      <span class="recommend-icon">${escapeHtml(skill.icon || "✦")}</span>
+      <h3>${escapeHtml(skill.name)}</h3>
+      <p>${escapeHtml(skill.description || "Useful capability for everyday agent work.")}</p>
+      <div class="agent-fit">${skillRoles(skill).slice(0, 2).map((role) => `<span>${escapeHtml(role)}</span>`).join("")}</div>
+      <button type="button">View & Add <span>→</span></button>
+    </article>
+  `).join("");
+
+  els.recommendedGrid.querySelectorAll("[data-recommend]").forEach((card) => {
+    card.addEventListener("click", () => openSkill(card.dataset.recommend));
+  });
+}
+
+function renderQuickFilters() {
+  if (!els.quickFilterRow) return;
+  els.quickFilterRow.innerHTML = QUICK_PATHS.map(([icon, label, role]) => `
+    <button type="button" data-agent-path="${escapeHtml(role)}"><span>${icon}</span>${escapeHtml(label)}</button>
+  `).join("");
+
+  els.quickFilterRow.querySelectorAll("[data-agent-path]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      await ensureCommunityLoaded();
+      state.query = "";
+      state.category = "all";
+      state.agent = button.dataset.agentPath || "all";
+      state.trust = "all";
+      els.search.value = "";
+      els.category.value = "all";
+      els.agent.value = state.agent;
+      els.trust.value = "all";
+      renderSkills();
+      document.querySelector("#discover")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+}
+
+function renderSourcePulse() {
+  if (!els.sourcePulseGrid) return;
+  const entries = Object.entries(state.sourceCounts)
+    .sort(([, left], [, right]) => Number(right) - Number(left));
+  const max = Math.max(1, ...entries.map(([, count]) => Number(count) || 0));
+
+  els.sourcePulseGrid.innerHTML = entries.map(([source, count]) => {
+    const width = Math.max(3, Math.round(((Number(count) || 0) / max) * 100));
+    const label = source === "skills.sh" ? "skills.sh" : source.replace(/(^|-)([a-z])/g, (_, lead, letter) => `${lead ? " " : ""}${letter.toUpperCase()}`);
+    return `
+      <div class="source-row">
+        <div><strong>${escapeHtml(label)}</strong><span>${formatCount(count)}</span></div>
+        <i><b style="width:${width}%"></b></i>
+      </div>
+    `;
+  }).join("");
+
+  if (els.sourcePulseStamp) els.sourcePulseStamp.textContent = relativeFreshness(state.generatedAt);
 }
 
 function showToast(message) {
@@ -135,7 +244,7 @@ function renderPacks() {
 function visibleSkills() {
   const q = state.query.trim().toLowerCase();
   return state.skills.filter((skill) => {
-    const haystack = [skill.name, skill.description || "", skill.author || "", skill.category, ...(skill.tags || [])].join(" ").toLowerCase();
+    const haystack = [skill.name, skill.description || "", skill.author || "", skill.category, ...(skill.tags || []), ...skillRoles(skill)].join(" ").toLowerCase();
     const qMatch = !q || haystack.includes(q);
     const categoryMatch = state.category === "all" || skill.category === state.category;
     const agentMatch = state.agent === "all" || skillRoles(skill).includes(state.agent);
@@ -331,6 +440,7 @@ async function ensureCommunityLoaded() {
   if (state.communityLoaded || state.communityLoading) return;
   state.communityLoading = true;
   els.resultCount.textContent = `Loading the full ${state.catalogCount.toLocaleString()}-skill catalog…`;
+  if (els.communityLoadState) els.communityLoadState.textContent = "Opening full catalog…";
 
   try {
     const response = await fetch("./data/community-index.json", { cache: "no-store" });
@@ -343,8 +453,10 @@ async function ensureCommunityLoaded() {
     fillCategoryFilter();
     fillAgentFilter();
     renderSkills();
+    if (els.communityLoadState) els.communityLoadState.textContent = "Full catalog ready";
   } catch (error) {
     showToast(error instanceof Error ? error.message : "The full skills index could not be loaded.");
+    if (els.communityLoadState) els.communityLoadState.textContent = "Curated view ready";
     renderSkills();
   } finally {
     state.communityLoading = false;
@@ -429,14 +541,22 @@ async function loadData() {
   state.skills = curated;
   state.packs = await packsResponse.json();
   state.catalogCount = Number(meta.count) || curated.length;
+  state.sourceCounts = meta.sourceCounts && typeof meta.sourceCounts === "object" ? meta.sourceCounts : {};
+  state.generatedAt = meta.generatedAt || "";
 
   els.skillCount.textContent = state.catalogCount > 999
     ? `${(state.catalogCount / 1000).toFixed(1)}K+`
     : String(state.catalogCount);
   els.packCount.textContent = String(state.packs.length);
+  if (els.sourceCount) els.sourceCount.textContent = String(Object.keys(state.sourceCounts).length || "—");
+  if (els.commandCatalogCount) els.commandCatalogCount.textContent = formatCount(state.catalogCount);
+  if (els.catalogFreshness) els.catalogFreshness.textContent = relativeFreshness(state.generatedAt);
   fillCategoryFilter();
   fillAgentFilter();
   renderPacks();
+  renderRecommendations();
+  renderQuickFilters();
+  renderSourcePulse();
   renderSkills();
 
   const initialRole = params.get("role");
