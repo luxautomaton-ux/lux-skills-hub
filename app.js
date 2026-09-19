@@ -5,6 +5,9 @@ const state = {
   category: "all",
   trust: "all",
   activePack: null,
+  communityLoaded: false,
+  communityLoading: false,
+  catalogCount: 0,
 };
 
 const params = new URLSearchParams(window.location.search);
@@ -105,7 +108,7 @@ function renderPacks() {
 function visibleSkills() {
   const q = state.query.trim().toLowerCase();
   return state.skills.filter((skill) => {
-    const haystack = [skill.name, skill.description, skill.author, skill.category, ...(skill.tags || [])].join(" ").toLowerCase();
+    const haystack = [skill.name, skill.description || "", skill.author || "", skill.category, ...(skill.tags || [])].join(" ").toLowerCase();
     const qMatch = !q || haystack.includes(q);
     const categoryMatch = state.category === "all" || skill.category === state.category;
     const trustMatch = state.trust === "all" || skill.trust === state.trust;
@@ -114,9 +117,12 @@ function visibleSkills() {
 }
 
 function renderSkills() {
-  const skills = visibleSkills();
-  els.resultCount.textContent = `${skills.length} skill${skills.length === 1 ? "" : "s"} shown`;
-  if (!skills.length) {
+  const matches = visibleSkills();
+  const skills = matches.slice(0, 120);
+  els.resultCount.textContent = !state.communityLoaded && state.catalogCount > state.skills.length
+    ? `${skills.length} Lux-curated skills shown · ${state.catalogCount.toLocaleString()} indexed — search to load the full catalog`
+    : `${matches.length.toLocaleString()} match${matches.length === 1 ? "" : "es"} · showing ${skills.length.toLocaleString()}`;
+  if (!matches.length) {
     els.skillGrid.innerHTML = '<div class="empty-state">No skills match those filters. Try a broader outcome or category.</div>';
     return;
   }
@@ -127,9 +133,9 @@ function renderSkills() {
         <span class="trust-badge ${escapeHtml(skill.trust)}">${escapeHtml(trustLabel(skill.trust))}</span>
       </div>
       <h3>${escapeHtml(skill.name)}</h3>
-      <p>${escapeHtml(skill.description)}</p>
+      <p>${escapeHtml(skill.description || ("Indexed " + (skill.category || "community") + " capability from " + (skill.source || "the community catalog") + ". Open in Lux to inspect before installing."))}</p>
       <div class="skill-tags">${(skill.tags || []).slice(0, 4).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
-      <div class="skill-source"><span>${escapeHtml(skill.source)}</span><span>@${escapeHtml(skill.author)}</span></div>
+      <div class="skill-source"><span>${escapeHtml(skill.source || "community")}</span><span>@${escapeHtml(skill.author || "Community")}</span></div>
       <button type="button" data-skill="${escapeHtml(skill.id)}">Details & Add</button>
     </article>
   `).join("");
@@ -145,10 +151,10 @@ function openSkill(id) {
   openModal(`
     <span class="eyebrow">SKILL DETAILS • ${escapeHtml(skill.source)}</span>
     <h2>${escapeHtml(skill.name)}</h2>
-    <p>${escapeHtml(skill.description)}</p>
+    <p>${escapeHtml(skill.description || ("Indexed " + (skill.category || "community") + " capability from " + (skill.source || "the community catalog") + ". Lux will inspect the canonical skill before installation."))}</p>
     <div class="skill-tags">${tags}</div>
     <div class="modal-list">
-      <div><span>Author</span><strong>@${escapeHtml(skill.author)}</strong></div>
+      <div><span>Author / Registry</span><strong>@${escapeHtml(skill.author || skill.source || "Community")}</strong></div>
       <div><span>Category</span><strong>${escapeHtml(skill.category)}</strong></div>
       <div><span>Trust</span><strong>${escapeHtml(trustLabel(skill.trust))}</strong></div>
       <div><span>Identifier</span><code>${escapeHtml(skill.identifier)}</code></div>
@@ -162,7 +168,11 @@ function openSkill(id) {
 
   document.querySelector("#installSkillButton")?.addEventListener("click", () => installSkill(skill));
   document.querySelector("#openSourceButton")?.addEventListener("click", () => {
-    window.open(skill.sourceUrl, "_blank", "noopener,noreferrer");
+    if (skill.sourceUrl) {
+      window.open(skill.sourceUrl, "_blank", "noopener,noreferrer");
+      return;
+    }
+    showToast("This registry item has no direct public source link in the index. Lux will inspect it before installation.");
   });
 }
 
@@ -258,23 +268,60 @@ function applyPack(pack, included) {
 }
 
 function fillCategoryFilter() {
-  const categories = [...new Set(state.skills.map((skill) => skill.category))].sort();
+  const previous = state.category;
+  els.category.innerHTML = '<option value="all">All categories</option>';
+  const categories = [...new Set(state.skills.map((skill) => skill.category).filter(Boolean))].sort();
   for (const category of categories) {
     const option = document.createElement("option");
     option.value = category;
     option.textContent = category;
     els.category.append(option);
   }
+  els.category.value = categories.includes(previous) ? previous : "all";
+  state.category = els.category.value;
+}
+
+async function ensureCommunityLoaded() {
+  if (state.communityLoaded || state.communityLoading) return;
+  state.communityLoading = true;
+  els.resultCount.textContent = `Loading the full ${state.catalogCount.toLocaleString()}-skill catalog…`;
+
+  try {
+    const response = await fetch("./data/community-index.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("Full community index is unavailable.");
+    const snapshot = await response.json();
+    const community = Array.isArray(snapshot.skills) ? snapshot.skills : [];
+    const seen = new Set(state.skills.map((skill) => skill.identifier || skill.id));
+    state.skills = [...state.skills, ...community.filter((skill) => !seen.has(skill.identifier || skill.id))];
+    state.communityLoaded = true;
+    fillCategoryFilter();
+    renderSkills();
+  } catch (error) {
+    showToast(error instanceof Error ? error.message : "The full skills index could not be loaded.");
+    renderSkills();
+  } finally {
+    state.communityLoading = false;
+  }
 }
 
 function bindUi() {
+  els.search.addEventListener("focus", () => {
+    void ensureCommunityLoaded();
+  });
   els.search.addEventListener("input", (event) => {
+    void ensureCommunityLoaded();
     state.query = event.target.value;
     renderSkills();
+  });
+  els.category.addEventListener("pointerdown", () => {
+    void ensureCommunityLoaded();
   });
   els.category.addEventListener("change", (event) => {
     state.category = event.target.value;
     renderSkills();
+  });
+  els.trust.addEventListener("pointerdown", () => {
+    void ensureCommunityLoaded();
   });
   els.trust.addEventListener("change", (event) => {
     state.trust = event.target.value;
@@ -303,7 +350,7 @@ function bindUi() {
       <p>Lux Skills Hub is the capability catalog for the Lux ecosystem. LANA organizes community and Lux-reviewed skills by the jobs agents actually perform.</p>
       <div class="modal-list">
         <div><span>01</span><span>Pick a role pack or search by outcome.</span></div>
-        <div><span>02</span><span>Read the description, trust level, author, and source.</span></div>
+        <div><span>02</span><span>Review Lux curation or registry metadata, trust, identifier, and source.</span></div>
         <div><span>03</span><span>When embedded in a Lux app, send the skill to the selected agent profile.</span></div>
         <div><span>04</span><span>Third-party attribution and licensing remain intact.</span></div>
       </div>
@@ -311,25 +358,25 @@ function bindUi() {
   });
 }
 async function loadData() {
-  const [catalogResponse, packsResponse, communityResponse] = await Promise.all([
+  const [catalogResponse, packsResponse, metaResponse] = await Promise.all([
     fetch("./data/catalog.json", { cache: "no-store" }),
     fetch("./data/packs.json", { cache: "no-store" }),
-    fetch("./data/community-snapshot.json", { cache: "no-store" }).catch(() => null),
+    fetch("./data/community-index-meta.json", { cache: "no-store" }).catch(() => null),
   ]);
   if (!catalogResponse.ok || !packsResponse.ok) {
     throw new Error("Lux Skills Hub catalog could not be loaded.");
   }
+
   const catalog = await catalogResponse.json();
   const curated = Array.isArray(catalog.skills) ? catalog.skills : [];
-  let community = [];
-  if (communityResponse?.ok) {
-    const snapshot = await communityResponse.json();
-    community = Array.isArray(snapshot.skills) ? snapshot.skills : [];
-  }
-  const seen = new Set(curated.map((skill) => skill.identifier || skill.id));
-  state.skills = [...curated, ...community.filter((skill) => !seen.has(skill.identifier || skill.id))];
+  const meta = metaResponse?.ok ? await metaResponse.json() : {};
+  state.skills = curated;
   state.packs = await packsResponse.json();
-  els.skillCount.textContent = state.skills.length > 999 ? `${(state.skills.length / 1000).toFixed(1)}K+` : String(state.skills.length);
+  state.catalogCount = Number(meta.count) || curated.length;
+
+  els.skillCount.textContent = state.catalogCount > 999
+    ? `${(state.catalogCount / 1000).toFixed(1)}K+`
+    : String(state.catalogCount);
   els.packCount.textContent = String(state.packs.length);
   fillCategoryFilter();
   renderPacks();
