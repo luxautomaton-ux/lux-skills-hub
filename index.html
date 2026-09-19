@@ -20,8 +20,9 @@
       <span class="brand-copy"><strong>LUX</strong><small>SKILLS HUB</small></span>
     </a>
     <nav class="nav-links" aria-label="Primary navigation">
+      <a href="#lana-picks">LANA Picks</a>
       <a href="#packs">Role Packs</a>
-      <a href="#discover">Discover</a>
+      <a href="#discover">Browse All</a>
       <a href="#trust">Trust</a>
       <a href="#integrations">Lux Ecosystem</a>
     </nav>
@@ -31,17 +32,24 @@
   <main id="top">
     <section class="hero shell">
       <div class="hero-copy">
-        <span class="eyebrow"><span class="pulse-dot"></span> LUX AUTOMATON • AGENT CAPABILITY LAYER</span>
-        <h1>Give every Lux Agent the <span>right skills</span> for the job.</h1>
-        <p class="hero-lede">Keep every public skill available without turning the Hub into chaos. LANA organizes the catalog by role, outcome, and agent fit, while every skill remains available à la carte.</p>
+        <span class="eyebrow"><span class="pulse-dot"></span> LUX AUTOMATON • LIVE AGENT CAPABILITY NETWORK</span>
+        <div class="live-catalog-chip"><span></span><strong>LIVE CATALOG</strong><em id="catalogFreshness">syncing now</em></div>
+        <h1>Teach your Lux Agent <span>almost anything.</span></h1>
+        <p class="hero-lede">Explore the full skill ecosystem without digging through marketplace noise. LANA organizes capabilities by job, outcome, and agent fit—and every skill stays available à la carte.</p>
         <div class="hero-actions">
-          <a class="primary-button" href="#packs">Choose a Role Pack <span>→</span></a>
-          <a class="secondary-button" href="#discover">Browse Skills</a>
+          <a class="primary-button" href="#lana-picks">See LANA’s Picks <span>→</span></a>
+          <a class="secondary-button" href="#discover">Browse All Skills</a>
+        </div>
+        <div class="lana-assist glass">
+          <img src="./assets/lana-approved.png" alt="" />
+          <div><strong>LANA is online</strong><span>Pick a role or tell me the outcome. I’ll narrow 98K+ capabilities into a clean starting stack.</span></div>
+          <a href="#discover">Explore <span>↗</span></a>
         </div>
         <div class="hero-stats" aria-label="Skills Hub highlights">
           <div><strong id="skillCount">—</strong><span>skills available</span></div>
-          <div><strong id="packCount">—</strong><span>role packs</span></div>
-          <div><strong>1</strong><span>Lux skill identity</span></div>
+          <div><strong id="sourceCount">—</strong><span>live sources</span></div>
+          <div><strong id="agentRoleCount">12</strong><span>agent-fit roles</span></div>
+          <div><strong id="packCount">—</strong><span>LANA role packs</span></div>
         </div>
       </div>
       <div class="lana-stage">
@@ -74,6 +82,22 @@
       </div>
     </section>
 
+    <section class="section shell lana-picks-section" id="lana-picks">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">LANA RECOMMENDS • FAST START</span>
+          <h2>Good skills to start with.</h2>
+          <p>A few high-value capabilities that fit everyday business agents. Add one now, or use Agent Fit to discover a more specific stack.</p>
+        </div>
+        <a class="section-link" href="#discover">Browse all <span>→</span></a>
+      </div>
+      <div class="recommended-grid" id="recommendedGrid" aria-live="polite"></div>
+      <div class="capability-rail glass">
+        <div class="rail-label"><span class="online-dot"></span><strong>Quick paths</strong><small>Jump into the full catalog</small></div>
+        <div class="quick-filter-row" id="quickFilterRow"></div>
+      </div>
+    </section>
+
     <section class="section shell" id="packs">
       <div class="section-heading">
         <div>
@@ -93,6 +117,13 @@
           <h2>Skills Library</h2>
           <p>Search by outcome, industry, role, or capability. Community results keep their registry identity and are inspected from the canonical source before installation.</p>
         </div>
+      </div>
+      <div class="catalog-commandbar glass">
+        <div class="catalog-command-copy">
+          <span class="command-kicker">ALL SKILLS • À LA CARTE</span>
+          <strong><span id="commandCatalogCount">—</span> capabilities, zero pack lock-in.</strong>
+        </div>
+        <div class="catalog-command-status"><span class="pulse-dot"></span><span id="communityLoadState">Curated view ready</span></div>
       </div>
       <div class="skills-toolbar glass">
         <label class="search-box">
@@ -121,8 +152,15 @@
         <span class="catalog-icon">↻</span>
         <div>
           <strong>One Lux catalog, multiple community sources.</strong>
-          <p>Lux exposes the full public skill catalog across multiple registries, keeps every skill available à la carte, and adds an Agent Fit layer so people can quickly find capabilities for the job. Skill code is fetched from its canonical source only when you choose to install it.</p>
+          <p>Every indexed skill stays available individually. Lux keeps discovery metadata light, then fetches the real skill from its canonical source only when you choose to add it.</p>
         </div>
+      </div>
+      <div class="source-pulse glass">
+        <div class="source-pulse-head">
+          <div><span class="eyebrow">CATALOG PULSE</span><strong>Where the capabilities come from</strong></div>
+          <small id="sourcePulseStamp">Live snapshot</small>
+        </div>
+        <div class="source-pulse-grid" id="sourcePulseGrid"></div>
       </div>
     </section>
 
