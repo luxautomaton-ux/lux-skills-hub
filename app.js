@@ -3,6 +3,7 @@ const state = {
   packs: [],
   query: "",
   category: "all",
+  agent: "all",
   trust: "all",
   activePack: null,
   communityLoaded: false,
@@ -19,6 +20,7 @@ const els = {
   skillGrid: document.querySelector("#skillGrid"),
   search: document.querySelector("#skillSearch"),
   category: document.querySelector("#categoryFilter"),
+  agent: document.querySelector("#agentFilter"),
   trust: document.querySelector("#trustFilter"),
   resultCount: document.querySelector("#resultCount"),
   skillCount: document.querySelector("#skillCount"),
@@ -44,6 +46,31 @@ function trustLabel(trust) {
   if (trust === "lux-verified") return "Lux Verified";
   if (trust === "curated") return "Lux Curated";
   return "Community";
+}
+
+function skillRoles(skill) {
+  if (Array.isArray(skill.agentRoles) && skill.agentRoles.length) return skill.agentRoles;
+
+  const fallback = {
+    "Real Estate": ["Sales & CRM"],
+    "Community & Nonprofit": ["Operations & Systems"],
+    "Trades & Field Service": ["Field Service & Trades"],
+    "Sales & CRM": ["Sales & CRM"],
+    Marketing: ["Marketing & Content"],
+    Finance: ["Finance & Money"],
+    Productivity: ["Executive & Chief of Staff"],
+    Documents: ["Executive & Chief of Staff", "Data & Analytics"],
+    "Documents & Data": ["Data & Analytics"],
+    Research: ["Research & Intelligence"],
+    Developer: ["Engineering & Builder"],
+    Communication: ["Executive & Chief of Staff", "Customer Support"],
+    "Creative & Media": ["Creative & Media"],
+    Security: ["Security & Compliance"],
+    Operations: ["Operations & Systems"],
+    General: ["Operations & Systems"],
+  };
+
+  return fallback[skill.category] || ["Operations & Systems"];
 }
 
 function showToast(message) {
@@ -111,8 +138,9 @@ function visibleSkills() {
     const haystack = [skill.name, skill.description || "", skill.author || "", skill.category, ...(skill.tags || [])].join(" ").toLowerCase();
     const qMatch = !q || haystack.includes(q);
     const categoryMatch = state.category === "all" || skill.category === state.category;
+    const agentMatch = state.agent === "all" || skillRoles(skill).includes(state.agent);
     const trustMatch = state.trust === "all" || skill.trust === state.trust;
-    return qMatch && categoryMatch && trustMatch;
+    return qMatch && categoryMatch && agentMatch && trustMatch;
   });
 }
 
@@ -135,6 +163,7 @@ function renderSkills() {
       <h3>${escapeHtml(skill.name)}</h3>
       <p>${escapeHtml(skill.description || ("Indexed " + (skill.category || "community") + " capability from " + (skill.source || "the community catalog") + ". Open in Lux to inspect before installing."))}</p>
       <div class="skill-tags">${(skill.tags || []).slice(0, 4).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
+      <div class="agent-fit">${skillRoles(skill).slice(0, 2).map((role) => `<span>${escapeHtml(role)}</span>`).join("")}</div>
       <div class="skill-source"><span>${escapeHtml(skill.source || "community")}</span><span>@${escapeHtml(skill.author || "Community")}</span></div>
       <button type="button" data-skill="${escapeHtml(skill.id)}">Details & Add</button>
     </article>
@@ -156,6 +185,7 @@ function openSkill(id) {
     <div class="modal-list">
       <div><span>Author / Registry</span><strong>@${escapeHtml(skill.author || skill.source || "Community")}</strong></div>
       <div><span>Category</span><strong>${escapeHtml(skill.category)}</strong></div>
+      <div><span>Agent fit</span><strong>${escapeHtml(skillRoles(skill).join(" / "))}</strong></div>
       <div><span>Trust</span><strong>${escapeHtml(trustLabel(skill.trust))}</strong></div>
       <div><span>Identifier</span><code>${escapeHtml(skill.identifier)}</code></div>
     </div>
@@ -228,9 +258,11 @@ function openPack(id) {
     closeModal();
     state.query = "";
     state.category = "all";
+    state.agent = "all";
     state.trust = "all";
     els.search.value = "";
     els.category.value = "all";
+    els.agent.value = "all";
     els.trust.value = "all";
     const ids = new Set(pack.skills);
     const original = state.skills;
@@ -281,6 +313,20 @@ function fillCategoryFilter() {
   state.category = els.category.value;
 }
 
+function fillAgentFilter() {
+  const previous = state.agent;
+  const roles = [...new Set(state.skills.flatMap((skill) => skillRoles(skill)))].sort();
+  els.agent.innerHTML = '<option value="all">All agent roles</option>';
+  for (const role of roles) {
+    const option = document.createElement("option");
+    option.value = role;
+    option.textContent = role;
+    els.agent.append(option);
+  }
+  els.agent.value = roles.includes(previous) ? previous : "all";
+  state.agent = els.agent.value;
+}
+
 async function ensureCommunityLoaded() {
   if (state.communityLoaded || state.communityLoading) return;
   state.communityLoading = true;
@@ -295,6 +341,7 @@ async function ensureCommunityLoaded() {
     state.skills = [...state.skills, ...community.filter((skill) => !seen.has(skill.identifier || skill.id))];
     state.communityLoaded = true;
     fillCategoryFilter();
+    fillAgentFilter();
     renderSkills();
   } catch (error) {
     showToast(error instanceof Error ? error.message : "The full skills index could not be loaded.");
@@ -320,6 +367,13 @@ function bindUi() {
     state.category = event.target.value;
     renderSkills();
   });
+  els.agent.addEventListener("pointerdown", () => {
+    void ensureCommunityLoaded();
+  });
+  els.agent.addEventListener("change", (event) => {
+    state.agent = event.target.value;
+    renderSkills();
+  });
   els.trust.addEventListener("pointerdown", () => {
     void ensureCommunityLoaded();
   });
@@ -330,9 +384,11 @@ function bindUi() {
   els.clear.addEventListener("click", () => {
     state.query = "";
     state.category = "all";
+    state.agent = "all";
     state.trust = "all";
     els.search.value = "";
     els.category.value = "all";
+    els.agent.value = "all";
     els.trust.value = "all";
     renderSkills();
   });
@@ -379,6 +435,7 @@ async function loadData() {
     : String(state.catalogCount);
   els.packCount.textContent = String(state.packs.length);
   fillCategoryFilter();
+  fillAgentFilter();
   renderPacks();
   renderSkills();
 
