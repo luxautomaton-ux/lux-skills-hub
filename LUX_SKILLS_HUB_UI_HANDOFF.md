@@ -130,4 +130,7 @@ Desired direction:
 - Shared Hub JavaScript syntax check: PASS
 - Agent Fit generator/filter wiring: PASS
 - Lux Hermes Desktop production build: PASS
-- Lux Codex Hub integration: present; targeted test run is part of the closeout evidence
+- Lux Agent Desktop shared-Hub contract check: PASS
+- Lux Codex shared-Hub contract check: PASS
+- Lux Hermes Desktop shared-Hub contract check: PASS
+- Lux Codex targeted Vitest attempt: runner did not return a normal report in this checkout, so it is **not** counted as a test pass; the direct source contract check above is the recorded acceptance signal
