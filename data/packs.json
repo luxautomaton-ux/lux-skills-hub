@@ -1,0 +1,186 @@
+[
+  {
+    "id": "real-estate-agent",
+    "name": "Real Estate Agent",
+    "icon": "⌂",
+    "description": "Lead follow-up, property research, scheduling, documents, client communication, and market context.",
+    "audience": "Agents & brokers",
+    "skills": [
+      "real-estate",
+      "market-research",
+      "calendar-scheduling",
+      "meeting-notes",
+      "document-pdf",
+      "email-outreach"
+    ],
+    "capabilities": [
+      "Property and neighborhood research",
+      "Lead and client follow-up",
+      "Calendar and showing coordination",
+      "PDF and listing document handling",
+      "Meeting notes and action items",
+      "Market and competitor research"
+    ],
+    "glow": "rgba(71,139,255,.28)"
+  },
+  {
+    "id": "electrician-owner",
+    "name": "Electrician / Contractor",
+    "icon": "ϟ",
+    "description": "Scheduling, project tracking, documents, customer follow-up, bookkeeping, and business operations.",
+    "audience": "Owners & estimators",
+    "skills": [
+      "calendar-scheduling",
+      "project-management-2",
+      "document-pdf",
+      "email-outreach",
+      "bookkeeping-basics",
+      "meeting-notes"
+    ],
+    "capabilities": [
+      "Job and appointment scheduling",
+      "Project and task tracking",
+      "Estimate / proposal document workflows",
+      "Customer follow-up",
+      "Basic bookkeeping organization",
+      "Site notes and action items"
+    ],
+    "glow": "rgba(244,197,91,.24)"
+  },
+  {
+    "id": "church-director",
+    "name": "Church Director",
+    "icon": "✦",
+    "description": "Events, volunteer coordination, communication, meeting notes, documents, and outreach.",
+    "audience": "Church leadership",
+    "skills": [
+      "calendar-scheduling",
+      "project-management-2",
+      "meeting-notes",
+      "social-media-marketing",
+      "document-pdf",
+      "email-outreach"
+    ],
+    "capabilities": [
+      "Event and service scheduling",
+      "Volunteer and project coordination",
+      "Meeting minutes and follow-ups",
+      "Community communication",
+      "Document preparation",
+      "Social media outreach"
+    ],
+    "glow": "rgba(180,60,255,.23)"
+  },
+  {
+    "id": "small-business-owner",
+    "name": "Small Business Owner",
+    "icon": "▣",
+    "description": "A practical everyday stack for running a small company without drowning in tools.",
+    "audience": "Owners & operators",
+    "skills": [
+      "project-management-2",
+      "bookkeeping-basics",
+      "calendar-scheduling",
+      "market-research",
+      "social-media-marketing",
+      "email-outreach"
+    ],
+    "capabilities": [
+      "Priorities and project management",
+      "Bookkeeping organization",
+      "Scheduling and meetings",
+      "Market research",
+      "Marketing content",
+      "Customer follow-up"
+    ],
+    "glow": "rgba(54,213,180,.22)"
+  },
+  {
+    "id": "sales-crm",
+    "name": "Sales & CRM Agent",
+    "icon": "↗",
+    "description": "Prospecting, CRM updates, outreach, follow-up, research, scheduling, and pipeline work.",
+    "audience": "Sales teams",
+    "skills": [
+      "salesflare",
+      "email-outreach",
+      "market-research",
+      "calendar-scheduling",
+      "meeting-notes"
+    ],
+    "capabilities": [
+      "CRM record management",
+      "Outreach sequences",
+      "Lead and market research",
+      "Meeting scheduling",
+      "Call and meeting notes"
+    ],
+    "glow": "rgba(53,208,230,.22)"
+  },
+  {
+    "id": "executive-assistant",
+    "name": "Executive Assistant",
+    "icon": "◇",
+    "description": "Calendar, meetings, documents, project tracking, follow-up, and executive organization.",
+    "audience": "Executives & chiefs of staff",
+    "skills": [
+      "calendar-scheduling",
+      "meeting-notes",
+      "document-pdf",
+      "project-management-2",
+      "email-outreach"
+    ],
+    "capabilities": [
+      "Calendar coordination",
+      "Meeting briefings and notes",
+      "Document handling",
+      "Task follow-through",
+      "Email and follow-up support"
+    ],
+    "glow": "rgba(125,77,255,.22)"
+  },
+  {
+    "id": "marketing-lead",
+    "name": "Marketing Lead",
+    "icon": "◉",
+    "description": "Research, content planning, social media, campaign documents, outreach, and coordination.",
+    "audience": "Marketing teams",
+    "skills": [
+      "social-media-marketing",
+      "market-research",
+      "email-outreach",
+      "pdf-document-generation-cellcog",
+      "project-management-2"
+    ],
+    "capabilities": [
+      "Social strategy",
+      "Market and competitor research",
+      "Campaign outreach",
+      "Content and document production",
+      "Campaign project management"
+    ],
+    "glow": "rgba(255,104,123,.18)"
+  },
+  {
+    "id": "developer-ops",
+    "name": "Developer / Ops",
+    "icon": "⌘",
+    "description": "Git, containers, deployment support, project tracking, documents, and technical workflows.",
+    "audience": "Builders & operators",
+    "skills": [
+      "docker-containerization",
+      "gitflow",
+      "fast-io",
+      "project-management-2",
+      "document-pdf"
+    ],
+    "capabilities": [
+      "Git and release workflows",
+      "Containerization",
+      "File and I/O automation",
+      "Technical project tracking",
+      "Documentation handling"
+    ],
+    "glow": "rgba(41,173,255,.22)"
+  }
+]

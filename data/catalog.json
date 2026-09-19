@@ -1,0 +1,266 @@
+{
+  "generatedAt": "2026-09-18T17:00:00-07:00",
+  "policy": {
+    "verifiedMeaning": "Lux Verified is reserved for skills that pass the Lux verification workflow. Curated does not mean authored or endorsed by the original registry.",
+    "installProtocol": "lux-skill-pick"
+  },
+  "skills": [
+    {
+      "id": "real-estate",
+      "identifier": "clawhub/real-estate",
+      "name": "Real Estate",
+      "description": "Guidance for property decisions, buyer/seller workflows, landlord and agent research.",
+      "author": "ivangdavila",
+      "category": "Real Estate",
+      "tags": [
+        "property",
+        "buyers",
+        "sellers",
+        "research"
+      ],
+      "source": "ClawHub",
+      "sourceUrl": "https://clawhub.ai/ivangdavila/real-estate",
+      "trust": "curated",
+      "icon": "⌂"
+    },
+    {
+      "id": "calendar-scheduling",
+      "identifier": "clawhub/calendar-scheduling",
+      "name": "Calendar Scheduling",
+      "description": "Schedule meetings, check availability, and coordinate calendars across common providers.",
+      "author": "billylui",
+      "category": "Productivity",
+      "tags": [
+        "calendar",
+        "meetings",
+        "scheduling"
+      ],
+      "source": "ClawHub",
+      "sourceUrl": "https://clawhub.ai/billylui/calendar-scheduling",
+      "trust": "curated",
+      "icon": "◷"
+    },
+    {
+      "id": "meeting-notes",
+      "identifier": "clawhub/meeting-notes",
+      "name": "Meeting Notes",
+      "description": "Turn raw notes or transcripts into structured minutes, decisions, action items, and follow-ups.",
+      "author": "mohitagw15856",
+      "category": "Communication",
+      "tags": [
+        "meetings",
+        "notes",
+        "actions"
+      ],
+      "source": "ClawHub",
+      "sourceUrl": "https://clawhub.ai/mohitagw15856/meeting-notes",
+      "trust": "curated",
+      "icon": "≡"
+    },
+    {
+      "id": "document-pdf",
+      "identifier": "clawhub/document-pdf",
+      "name": "PDF & Document Tools",
+      "description": "Extract, structure, transform, and work with PDF documents and forms.",
+      "author": "kidaiangel",
+      "category": "Documents",
+      "tags": [
+        "pdf",
+        "documents",
+        "forms"
+      ],
+      "source": "ClawHub",
+      "sourceUrl": "https://clawhub.ai/kidaiangel/document-pdf",
+      "trust": "curated",
+      "icon": "▤"
+    },
+    {
+      "id": "email-outreach",
+      "identifier": "clawhub/email-outreach",
+      "name": "Email Outreach",
+      "description": "Build outreach sequences, draft follow-ups, and improve campaign messaging.",
+      "author": "v3ads",
+      "category": "Sales & CRM",
+      "tags": [
+        "email",
+        "follow-up",
+        "sales"
+      ],
+      "source": "ClawHub",
+      "sourceUrl": "https://clawhub.ai/v3ads/email-outreach",
+      "trust": "curated",
+      "icon": "✉"
+    },
+    {
+      "id": "salesflare",
+      "identifier": "clawhub/salesflare",
+      "name": "Salesflare CRM",
+      "description": "Read, search, create, and update CRM accounts, contacts, opportunities, tasks, and pipelines.",
+      "author": "jeroencorthout",
+      "category": "Sales & CRM",
+      "tags": [
+        "crm",
+        "contacts",
+        "pipeline"
+      ],
+      "source": "ClawHub",
+      "sourceUrl": "https://clawhub.ai/jeroencorthout/salesflare",
+      "trust": "community",
+      "icon": "◎"
+    },
+    {
+      "id": "market-research",
+      "identifier": "clawhub/market-research",
+      "name": "Market Research",
+      "description": "Research market size, segments, competitors, pricing, and demand signals.",
+      "author": "ivangdavila",
+      "category": "Research",
+      "tags": [
+        "market",
+        "competitors",
+        "pricing"
+      ],
+      "source": "ClawHub",
+      "sourceUrl": "https://clawhub.ai/ivangdavila/market-research",
+      "trust": "curated",
+      "icon": "⌕"
+    },
+    {
+      "id": "social-media-marketing",
+      "identifier": "clawhub/social-media-marketing",
+      "name": "Social Media Marketing",
+      "description": "Create platform strategy, posting plans, audience growth workflows, and campaign ideas.",
+      "author": "jk-0001",
+      "category": "Marketing",
+      "tags": [
+        "social",
+        "content",
+        "marketing"
+      ],
+      "source": "ClawHub",
+      "sourceUrl": "https://clawhub.ai/jk-0001/social-media-marketing",
+      "trust": "curated",
+      "icon": "◈"
+    },
+    {
+      "id": "project-management-2",
+      "identifier": "clawhub/project-management-2",
+      "name": "Project Management",
+      "description": "Organize projects, priorities, deadlines, work tracking, and coordination.",
+      "author": "jk-0001",
+      "category": "Operations",
+      "tags": [
+        "projects",
+        "tasks",
+        "deadlines"
+      ],
+      "source": "ClawHub",
+      "sourceUrl": "https://clawhub.ai/jk-0001/project-management-2",
+      "trust": "curated",
+      "icon": "✓"
+    },
+    {
+      "id": "bookkeeping-basics",
+      "identifier": "clawhub/bookkeeping-basics",
+      "name": "Bookkeeping Basics",
+      "description": "Track income and expenses, support invoice workflows, and organize bookkeeping basics.",
+      "author": "jk-0001",
+      "category": "Finance",
+      "tags": [
+        "bookkeeping",
+        "invoice",
+        "expenses"
+      ],
+      "source": "ClawHub",
+      "sourceUrl": "https://clawhub.ai/jk-0001/bookkeeping-basics",
+      "trust": "curated",
+      "icon": "$"
+    },
+    {
+      "id": "google-calendar-scheduling",
+      "identifier": "clawhub/google-calendar-scheduling",
+      "name": "Google Calendar",
+      "description": "Check calendars, find free time, schedule meetings, and update events through Google Calendar.",
+      "author": "thejanethmina",
+      "category": "Productivity",
+      "tags": [
+        "google",
+        "calendar",
+        "schedule"
+      ],
+      "source": "ClawHub",
+      "sourceUrl": "https://clawhub.ai/thejanethmina/google-calendar-scheduling",
+      "trust": "community",
+      "icon": "◫"
+    },
+    {
+      "id": "pdf-document-generation-cellcog",
+      "identifier": "clawhub/pdf-document-generation-cellcog",
+      "name": "PDF Document Generation",
+      "description": "Generate professional reports, proposals, invoices, letters, and other PDF/DOCX documents.",
+      "author": "cellcog",
+      "category": "Documents",
+      "tags": [
+        "pdf",
+        "proposal",
+        "invoice",
+        "report"
+      ],
+      "source": "ClawHub",
+      "sourceUrl": "https://clawhub.ai/cellcog/pdf-document-generation-cellcog",
+      "trust": "community",
+      "icon": "▧"
+    },
+    {
+      "id": "docker-containerization",
+      "identifier": "clawhub/docker-containerization",
+      "name": "Docker Containerization",
+      "description": "Package applications and services into containers with practical Docker workflows.",
+      "author": "veeramanikandanr48",
+      "category": "Developer",
+      "tags": [
+        "docker",
+        "devops",
+        "deployment"
+      ],
+      "source": "Hermes community index",
+      "sourceUrl": "https://github.com/NousResearch/hermes-agent",
+      "trust": "community",
+      "icon": "⬡"
+    },
+    {
+      "id": "gitflow",
+      "identifier": "clawhub/gitflow",
+      "name": "GitFlow",
+      "description": "Support structured Git branching and release workflows for software projects.",
+      "author": "okoddcat",
+      "category": "Developer",
+      "tags": [
+        "git",
+        "github",
+        "release"
+      ],
+      "source": "Hermes community index",
+      "sourceUrl": "https://github.com/NousResearch/hermes-agent",
+      "trust": "community",
+      "icon": "⑂"
+    },
+    {
+      "id": "fast-io",
+      "identifier": "clawhub/fast-io",
+      "name": "Fast I/O",
+      "description": "A developer-oriented skill surfaced by the community catalog for file and I/O workflows.",
+      "author": "dbalve",
+      "category": "Developer",
+      "tags": [
+        "files",
+        "development",
+        "automation"
+      ],
+      "source": "Hermes community index",
+      "sourceUrl": "https://github.com/NousResearch/hermes-agent",
+      "trust": "community",
+      "icon": "⚡"
+    }
+  ]
+}

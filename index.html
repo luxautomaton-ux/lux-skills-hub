@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#07111f" />
+  <meta name="description" content="Lux Skills Hub — discover, understand, and install skills for Lux Agents by role and outcome." />
+  <title>Lux Skills Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <header class="topbar" id="topbar">
+    <a class="brand" href="#top" aria-label="Lux Skills Hub home">
+      <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+      <span class="brand-copy"><strong>LUX</strong><small>SKILLS HUB</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a href="#packs">Role Packs</a>
+      <a href="#discover">Discover</a>
+      <a href="#trust">Trust</a>
+      <a href="#integrations">Lux Ecosystem</a>
+    </nav>
+    <button class="ghost-button info-button" id="aboutButton" type="button" aria-label="About Lux Skills Hub">ⓘ</button>
+  </header>
+
+  <main id="top">
+    <section class="hero shell">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="pulse-dot"></span> LUX AUTOMATON • AGENT CAPABILITY LAYER</span>
+        <h1>Give every Lux Agent the <span>right skills</span> for the job.</h1>
+        <p class="hero-lede">Skip the giant marketplace dump. LANA organizes skills into practical role packs, explains what they do, and helps you add only what your agent actually needs.</p>
+        <div class="hero-actions">
+          <a class="primary-button" href="#packs">Choose a Role Pack <span>→</span></a>
+          <a class="secondary-button" href="#discover">Browse Skills</a>
+        </div>
+        <div class="hero-stats" aria-label="Skills Hub highlights">
+          <div><strong id="skillCount">—</strong><span>curated skills</span></div>
+          <div><strong id="packCount">—</strong><span>role packs</span></div>
+          <div><strong>1</strong><span>Lux skill identity</span></div>
+        </div>
+      </div>
+      <div class="lana-stage">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="lana-card glass">
+          <div class="lana-label"><span class="online-dot"></span> LANA • SKILLS GUIDE</div>
+          <img src="./assets/lana-approved.png" alt="LANA, the Lux AI skills guide" />
+          <div class="lana-message">
+            <strong>Tell me what your agent does.</strong>
+            <span>I’ll recommend a clean skill stack, explain every capability, and keep the setup easy to understand.</span>
+          </div>
+        </div>
+        <div class="floating-chip chip-a">✓ Role-aware</div>
+        <div class="floating-chip chip-b">◈ Lux Verify ready</div>
+        <div class="floating-chip chip-c">＋ One-click handoff</div>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <div class="shell trust-strip-inner">
+        <span>Built for</span>
+        <strong>Lux Agent Desktop</strong>
+        <i></i>
+        <strong>Lux Codex</strong>
+        <i></i>
+        <strong>Lux Agent Builder</strong>
+        <i></i>
+        <strong>Lux Hermes Desktop</strong>
+      </div>
+    </section>
+
+    <section class="section shell" id="packs">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">START WITH THE JOB, NOT THE TOOL</span>
+          <h2>Role Packs</h2>
+          <p>Pick the kind of agent you’re building. LANA groups the capabilities that usually belong together so customers don’t have to decode thousands of individual skills.</p>
+        </div>
+        <div class="section-badge">LANA CURATED</div>
+      </div>
+      <div class="pack-grid" id="packGrid" aria-live="polite"></div>
+    </section>
+
+    <section class="section shell" id="discover">
+      <div class="section-heading compact-heading">
+        <div>
+          <span class="eyebrow">DISCOVER • UNDERSTAND • ADD</span>
+          <h2>Skills Library</h2>
+          <p>Search by outcome, industry, role, or capability. Third-party skills keep their original author and license information.</p>
+        </div>
+      </div>
+      <div class="skills-toolbar glass">
+        <label class="search-box">
+          <span aria-hidden="true">⌕</span>
+          <input id="skillSearch" type="search" placeholder="Try: lead follow-up, electrician, calendar, research…" autocomplete="off" />
+        </label>
+        <select id="categoryFilter" aria-label="Filter by category">
+          <option value="all">All categories</option>
+        </select>
+        <select id="trustFilter" aria-label="Filter by trust">
+          <option value="all">All trust levels</option>
+          <option value="lux-verified">Lux Verified</option>
+          <option value="curated">Lux Curated</option>
+          <option value="community">Community</option>
+        </select>
+      </div>
+      <div class="result-line">
+        <span id="resultCount">Loading skills…</span>
+        <button class="text-button" id="clearFilters" type="button">Clear filters</button>
+      </div>
+      <div class="skill-grid" id="skillGrid" aria-live="polite"></div>
+      <div class="catalog-note glass">
+        <span class="catalog-icon">↻</span>
+        <div>
+          <strong>One Lux catalog, multiple community sources.</strong>
+          <p>The Lux app integration can search the broader community registries live. This website keeps a curated, cache-friendly catalog and role structure so the experience stays fast and understandable.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell trust-section" id="trust">
+      <div class="trust-panel">
+        <span class="eyebrow">LUX VERIFY TRUST LAYER</span>
+        <h2>Know what you’re adding before you add it.</h2>
+        <p>Lux Skills Hub separates Lux verification from community provenance. A skill can be useful without pretending Lux authored it.</p>
+        <div class="trust-legend">
+          <div><span class="trust-dot verified"></span><strong>Lux Verified</strong><small>Reviewed against Lux checks</small></div>
+          <div><span class="trust-dot curated"></span><strong>Lux Curated</strong><small>Selected for a role or outcome</small></div>
+          <div><span class="trust-dot community"></span><strong>Community</strong><small>Original author/source shown</small></div>
+        </div>
+      </div>
+      <div class="trust-card-stack">
+        <article class="mini-card glass"><span>01</span><strong>Provenance</strong><p>Author, registry, source, and license travel with the skill.</p></article>
+        <article class="mini-card glass"><span>02</span><strong>Capability Fit</strong><p>LANA explains why a skill belongs in the selected role pack.</p></article>
+        <article class="mini-card glass"><span>03</span><strong>Review Before Install</strong><p>Customers see what a skill does before giving their agent more capability.</p></article>
+      </div>
+    </section>
+
+    <section class="section shell" id="integrations">
+      <div class="section-heading compact-heading">
+        <div>
+          <span class="eyebrow">ONE HUB • EVERY LUX SURFACE</span>
+          <h2>Built into the ecosystem</h2>
+        </div>
+      </div>
+      <div class="integration-grid">
+        <article><span>AD</span><strong>Lux Agent Desktop</strong><p>Browse and install skills into the selected agent profile.</p></article>
+        <article><span>CX</span><strong>Lux Codex</strong><p>Give the founder team the same curated capabilities and role packs.</p></article>
+        <article><span>AB</span><strong>Lux Agent Builder</strong><p>Add a Skill Pack to an agent’s DNA during build or enhancement.</p></article>
+        <article><span>HD</span><strong>Lux Hermes Desktop</strong><p>Use the same Lux catalog for internal heavy-lift agents on the Mini.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer">
+    <div class="shell footer-inner">
+      <div class="brand footer-brand">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+        <span class="brand-copy"><strong>LUX</strong><small>SKILLS HUB</small></span>
+      </div>
+      <p>Lux Automaton • A clearer way to give AI agents real capability.</p>
+      <div class="footer-links"><a href="./NOTICE.md">Provenance</a><a href="https://github.com/luxautomaton-ux/lux-skills-hub" target="_blank" rel="noreferrer">GitHub</a></div>
+    </div>
+  </footer>
+
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <section class="modal glass" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" type="button" aria-label="Close">×</button>
+      <div id="modalBody"></div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
